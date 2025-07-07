@@ -1,0 +1,298 @@
+/* style.css (NEW FILE) */
+:root {
+    --primary-color: #2c3e50;
+    --secondary-color: #3498db;
+    --light-gray: #ecf0f1;
+    --dark-gray: #7f8c8d;
+    --background-color: #f4f6f9;
+    --sidebar-width: 280px;
+    --header-height: 70px;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--background-color);
+    color: #333;
+    line-height: 1.6;
+}
+
+header {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 0 20px;
+    height: var(--header-height);
+    display: flex;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+header .logo {
+    font-size: 2rem;
+    margin-right: 15px;
+}
+
+header h1 {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+header p {
+    font-size: 1rem;
+    font-weight: 300;
+    margin-left: 8px;
+    opacity: 0.8;
+}
+
+.container {
+    display: flex;
+    padding-top: var(--header-height);
+}
+
+.sidebar {
+    width: var(--sidebar-width);
+    height: calc(100vh - var(--header-height));
+    background-color: #fff;
+    border-right: 1px solid #ddd;
+    position: fixed;
+    top: var(--header-height);
+    left: 0;
+    transform: translateX(0);
+    transition: transform 0.3s ease-in-out;
+    overflow-y: auto;
+    z-index: 900;
+    padding-bottom: 20px;
+}
+
+main#gallery-container {
+    flex-grow: 1;
+    padding: 2rem;
+    margin-left: var(--sidebar-width);
+    transition: margin-left 0.3s ease-in-out;
+    overflow-y: auto;
+}
+
+/* --- Sidebar Styling --- */
+.sidebar ul {
+    list-style: none;
+}
+.sidebar li {
+    padding-left: 15px;
+}
+.folder-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 15px 12px 0;
+    cursor: pointer;
+    font-weight: 500;
+}
+.folder-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.folder-icon {
+    width: 20px;
+    height: 20px;
+}
+.dropdown-icon {
+    transition: transform 0.2s;
+}
+.folder-item.active > .folder-header .dropdown-icon {
+    transform: rotate(90deg);
+}
+.sub-folder-list {
+    display: none;
+    padding-left: 20px;
+}
+.folder-item.active > .sub-folder-list {
+    display: block;
+}
+button.folder-link, button.all-folders-btn {
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: none;
+    padding: 10px 15px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.95rem;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-bottom: 2px;
+}
+button.folder-link:hover {
+    background-color: var(--light-gray);
+}
+button.folder-link.selected {
+    background-color: var(--secondary-color);
+    color: white;
+    font-weight: 500;
+}
+
+/* --- Main Content Styling --- */
+.folder-description {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+.manual-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+.manual-item {
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+}
+.manual-item.highlighted {
+    box-shadow: 0 0 0 3px var(--secondary-color), 0 5px 15px rgba(0,0,0,0.2);
+    transform: scale(1.03);
+}
+.manual-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+.manual-item img, .manual-item video {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+}
+.manual-item figcaption {
+    padding: 1rem;
+    font-weight: 500;
+}
+
+/* --- Subfolder Grid Styling --- */
+.subfolder-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+.subfolder-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+.subfolder-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+.subfolder-custom-icon {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 1rem;
+}
+.subfolder-card h3 {
+    color: var(--primary-color);
+}
+
+/* --- Modal Styling --- */
+.img-modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.9);
+}
+.img-modal.show {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.img-modal-content {
+    margin: auto;
+    display: block;
+    max-width: 90%;
+    max-height: 80vh;
+}
+.img-modal-close {
+    position: absolute;
+    top: 20px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.img-modal-caption {
+    margin: 15px auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+    text-align: center;
+    color: #ccc;
+    padding: 10px 0;
+}
+
+/* --- Responsive & Mobile --- */
+.menu-button {
+    display: none;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
+    margin-right: 15px;
+}
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 899;
+}
+.overlay.show {
+    display: block;
+}
+
+@media (max-width: 700px) {
+    .menu-button {
+        display: block;
+    }
+    .sidebar {
+        transform: translateX(-100%);
+        box-shadow: 2px 0 5px rgba(0,0,0,0.2);
+    }
+    .sidebar.open {
+        transform: translateX(0);
+    }
+    main#gallery-container {
+        margin-left: 0;
+        padding: 1rem;
+    }
+    header h1 { font-size: 1.2rem; }
+    header p { display: none; }
+}
